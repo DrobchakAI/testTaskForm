@@ -1,0 +1,184 @@
+:root {
+
+    --input-padding-vertical: 10px;
+    --input-padding-horizontal: 5px;
+    
+
+    --input-margin-top:20px;
+  }
+* {
+    margin: 0;
+    padding: 0;
+    
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  html{
+    height: 100%;
+  }
+  body {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    
+    & header{
+        display: flex;
+        align-items: center;
+    
+        & .title{
+            font-size: 18px;
+            margin: 15px auto;    
+        }
+    }
+    & .content{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+
+    & .input-wrapper{
+        position: relative;
+        width: 100%;
+        & input{          
+            margin-top:var(--input-margin-top);
+            border:1px solid black;
+            border-radius: 6px;
+            padding: var(--input-padding-vertical) var(--input-padding-horizontal);
+            width: 100%;
+            
+            &:required{
+                & + .placeholder{
+                    display: flex;                    
+                    align-items: center;
+                    
+                    &::after
+                    {
+                        content:"*";
+                        font-size: 18px;
+                        color:tomato;
+                        line-height: 1px;
+                    }
+                }
+            }
+            &:not(:placeholder-shown)
+            {
+                & + .placeholder{
+                    top:0;
+                }
+            }
+            &:focus{
+                & + .placeholder{
+                    top:0;
+                }
+            }
+        }
+        & button{
+            width: 100%;
+            padding: 6px;
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 6px;
+        }
+        & .error{
+            color:tomato;
+            padding-top:5px;
+            font-size: 12px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        & .placeholder{
+            pointer-events: none;
+            position: absolute;
+            top:calc(var(--input-margin-top) + var(--input-padding-vertical));
+            left:5px;
+            transition: all 0.2s ease;
+            display: flex;
+            color:#616161;
+            
+        }
+    }
+
+    & footer{
+        margin-top:auto;
+        margin-bottom: 0;
+        display: flex;  
+        align-items: center;
+        
+        & .info{
+            margin: 0 15px 15px auto;    
+        }
+    }
+  }
+form{
+    &.loading{        
+        pointer-events: none;
+        position: relative;
+        &:before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 2;
+            border-radius: 6px;
+            top:0;
+            left:0;
+            opacity: 0.5;
+        }
+        & button{
+            pointer-events: none;
+            content:"";
+            opacity: 0.5;
+            position: relative;
+            &:before{
+                content: attr(data-loading-text);
+                position: absolute;
+                margin:auto auto;
+                background-color: white;
+                width: 100%;
+                height: 100%;
+                top:0;
+                left: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+            }
+        }
+    }
+    &.form_on_main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 45px;
+        border: 1px solid black;
+        border-radius: 6px;
+        gap:15px;
+        & > .title{
+            font-size: 16px;
+            font-weight: bold;
+        }
+        & .input-wrapper{
+            & button{
+                margin-top:15px;
+                height: 55px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                &:hover{
+                    background-color: #000000;
+                    color:white
+                }
+            }
+        }
+        & .block{
+            display: flex;
+            width: 100%;
+            gap:15px;
+        }
+    }
+}

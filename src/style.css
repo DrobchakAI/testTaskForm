@@ -1,0 +1,169 @@
+:root {
+  --input-padding-vertical: 10px;
+  --input-padding-horizontal: 5px;
+  --input-margin-top:20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+}
+body header {
+  display: flex;
+  align-items: center;
+}
+body header .title {
+  font-size: 18px;
+  margin: 15px auto;
+}
+body .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+body .input-wrapper {
+  position: relative;
+  width: 100%;
+}
+body .input-wrapper input {
+  margin-top: var(--input-margin-top);
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: var(--input-padding-vertical) var(--input-padding-horizontal);
+  width: 100%;
+}
+body .input-wrapper input:required + .placeholder {
+  display: flex;
+  align-items: center;
+}
+body .input-wrapper input:required + .placeholder::after {
+  content: "*";
+  font-size: 18px;
+  color: tomato;
+  line-height: 1px;
+}
+body .input-wrapper input:not(:-moz-placeholder-shown) + .placeholder {
+  top: 0;
+}
+body .input-wrapper input:not(:-ms-input-placeholder) + .placeholder {
+  top: 0;
+}
+body .input-wrapper input:not(:placeholder-shown) + .placeholder {
+  top: 0;
+}
+body .input-wrapper input:focus + .placeholder {
+  top: 0;
+}
+body .input-wrapper button {
+  width: 100%;
+  padding: 6px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+body .input-wrapper .error {
+  color: tomato;
+  padding-top: 5px;
+  font-size: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+body .input-wrapper .placeholder {
+  pointer-events: none;
+  position: absolute;
+  top: calc(var(--input-margin-top) + var(--input-padding-vertical));
+  left: 5px;
+  transition: all 0.2s ease;
+  display: flex;
+  color: #616161;
+}
+body footer {
+  margin-top: auto;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+body footer .info {
+  margin: 0 15px 15px auto;
+}
+
+form.loading {
+  pointer-events: none;
+  position: relative;
+}
+form.loading:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 2;
+  border-radius: 6px;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+}
+form.loading button {
+  pointer-events: none;
+  content: "";
+  opacity: 0.5;
+  position: relative;
+}
+form.loading button:before {
+  content: attr(data-loading-text);
+  position: absolute;
+  margin: auto auto;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+form.form_on_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 45px;
+  border: 1px solid black;
+  border-radius: 6px;
+  gap: 15px;
+}
+form.form_on_main > .title {
+  font-size: 16px;
+  font-weight: bold;
+}
+form.form_on_main .input-wrapper button {
+  margin-top: 15px;
+  height: 55px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+form.form_on_main .input-wrapper button:hover {
+  background-color: #000000;
+  color: white;
+}
+form.form_on_main .block {
+  display: flex;
+  width: 100%;
+  gap: 15px;
+}/*# sourceMappingURL=style.css.map */
