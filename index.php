@@ -88,7 +88,7 @@ session_start();
     </div>
     <footer>
         <div class="info">
-            Разработанно в 2022г. Дробчак А.И.
+            Разработано в 2022г. Дробчак А.И.
         </div>
     </footer>
 </body>
