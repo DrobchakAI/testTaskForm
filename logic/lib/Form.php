@@ -6,7 +6,14 @@ class Form{
     public $Result;
     private const formName = "callbackForm";
     private const formDataField = "formData";
-
+    private const spamTemplate = [
+        "www",
+        "http",
+        "h ttp",
+        "ht tp",
+        "htt p",
+        "http s",
+    ];
 
     function __construct()
     {        
@@ -31,6 +38,18 @@ class Form{
             $this->Result->ErrorText = "Data is corrupted";
         }
     }
+    private function checkSpamContent($value)
+    {
+        foreach(self::spamTemplate as $template)
+        {
+            if(strpos($value,$template) !== false)
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }   
     /**
      * Сохранение результата в текстовый файл.
      */
@@ -62,7 +81,6 @@ class Form{
         
             if($item->maxlength)
             {
-            
                
                 if(!$this->checkMaxSize($item->value,$item->maxlength)){                                
                     
@@ -93,6 +111,12 @@ class Form{
             $preparedValue = htmlspecialchars($preparedValue);
             $preparedValue = addslashes($preparedValue);
         
+
+            if(!$this->checkSpamContent($item->value)){
+                $preparedData = [];
+                break;
+            }
+
             $preparedData[$item->name] = $preparedValue;
         }
         
