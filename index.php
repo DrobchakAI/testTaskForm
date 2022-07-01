@@ -1,5 +1,6 @@
 <?
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -8,6 +9,9 @@ session_start();
   <title></title>
   <link href="src/style.css" rel="stylesheet" />
   <script src="src/script.js"></script>
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+  
 </head>
 <body>
     <header>
@@ -15,16 +19,31 @@ session_start();
             Тестовое задание
         </div>
     </header>
+    <script>
+        ymaps.ready(init);
+    </script>
     <div class="content">
-        <form method="post" action='/logic/' enctype='multipart/form-data' class='form_on_main' onsubmit="formSubmit(this,event)">
+        
+        <form method="post" action='/logic/' enctype='multipart/form-data' class='form_on_main' onsubmit="formSubmit(this,event)" novalidate>
+        <div class="map" id="map">
+            
+        </div>
+            <div class="status">
+                <div class="text"></div>
+                <div class="button" onclick="this.parentNode.classList.remove('active');">Закрыть</div>
+            </div>            
+
+            <input type="hidden" name='formName' value='callbackForm'>
             <input type="hidden" name='action' value='send'>
             <input type="hidden" name='sessid' value='<?=session_id()?>'>
+            <input type="text" name="FIRST_NAME" data-check='y' style="opacity:0;z-index:-1;width:1px;position:absolute">
+            <input type="text" name="LAST_NAME" data-check='y' style="opacity:0;z-index:-1;width:1px;position:absolute">
             <div class="title">
                 Форма обратной связи
             </div>
             <div class="block">
                 <div class="input-wrapper">
-                    <input type="text" placeholder=' ' data-only-words maxlength=25>
+                    <input type="text" placeholder=' ' name='Name' data-only-words maxlength=25>
                     <div class="placeholder">
                         Имя
                     </div> 
@@ -32,7 +51,7 @@ session_start();
                 </div>
 
                 <div class="input-wrapper">
-                    <input type="text" placeholder=' ' required data-phone-mask="+_(___)___ __ __">
+                    <input type="text" placeholder=' ' name='Phone' required data-phone-mask="+_(___)___-__-__">
                     <div class="placeholder">
                         Телефон
                     </div>        
@@ -41,7 +60,7 @@ session_start();
             </div>
             <div class="block">
                 <div class="input-wrapper">
-                    <input type="text" placeholder=' ' required>
+                    <input type="text" placeholder=' ' name='Address' required id='address_suggest'>
                     <div class="placeholder">
                         Адрес
                     </div>    
@@ -50,10 +69,11 @@ session_start();
             </div>
             <div class="block">
                 <div class="input-wrapper">
-                    <input type="text" placeholder=' ' required>
+                    <input type="text" placeholder=' ' name='AddressMap' required id='address_suggest_map'>
                     <div class="placeholder">
                         Адрес 2
-                    </div>      
+                    </div>     
+                    <div class="smallbutton" onclick='openMap(this)'>Карта</div> 
                     <div class="error"></div>  
                 </div>
             </div>

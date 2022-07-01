@@ -68,6 +68,17 @@ body .input-wrapper input:not(:placeholder-shown) + .placeholder {
 body .input-wrapper input:focus + .placeholder {
   top: 0;
 }
+body .input-wrapper .smallbutton {
+  position: absolute;
+  font-size: 14px;
+  color: green;
+  border: 1px solid green;
+  border-radius: 6px;
+  padding: 5px 2px;
+  right: 5px;
+  cursor: pointer;
+  top: calc(var(--input-margin-top) + var(--input-padding-vertical) - 5px);
+}
 body .input-wrapper button {
   width: 100%;
   padding: 6px;
@@ -101,6 +112,9 @@ body footer .info {
   margin: 0 15px 15px auto;
 }
 
+form {
+  position: relative;
+}
 form.loading {
   pointer-events: none;
   position: relative;
@@ -166,4 +180,74 @@ form.form_on_main .block {
   display: flex;
   width: 100%;
   gap: 15px;
+}
+form .map {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+form .map.active {
+  display: block;
+}
+form .status {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: white;
+  top: 0;
+  left: 0;
+  border-radius: 6px;
+  border-color: 1px solid darkgreen;
+  padding: 45px;
+}
+form .status .text {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+form .status .button {
+  width: 100%;
+  padding: 6px;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  margin-top: auto;
+  height: 55px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+form .status .button:hover {
+  background-color: #000000;
+  color: white;
+}
+form .status.active {
+  display: flex;
+}
+form .status.success {
+  color: darkgreen;
+}
+form .status.error {
+  color: tomato;
 }/*# sourceMappingURL=style.css.map */
