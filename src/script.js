@@ -107,7 +107,10 @@ function clearError(input)
 {
     let parent = input.parentNode;
     let errorElement =  parent.querySelector(".error");
-    errorElement.innerHTML = "";
+    if(errorElement)
+    { 
+        errorElement.innerHTML = "";
+    }
 }
 /**
  * Проверка поля на пустоту.
@@ -206,34 +209,39 @@ function formSubmit(form,event)
     
     form.classList.add("loading");
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', form.getAttribute('action'));
-    xhr.send(formData);
-    xhr.onload = function () {
 
-        if (xhr.status === 200) {
-            let result = JSON.parse(xhr.responseText);
-            form.classList.remove("loading");
-            if(result.Status)
-            {
-                inputs.forEach(input => {
-                    input.value = "";
-                })
 
-                status.classList.add("active");
-                status.classList.add("success");
-                status.querySelector(".text").innerHTML = "Успешно отправлено!";
+    setTimeout(()=>{
+        xhr.open('POST', form.getAttribute('action'));
+        xhr.send(formData);
+        xhr.onload = function () {
+    
+            if (xhr.status === 200) {
+                let result = JSON.parse(xhr.responseText);
+                form.classList.remove("loading");
+                if(result.Status)
+                {
+                    inputs.forEach(input => {
+                        input.value = "";
+                    })
+    
+                    status.classList.add("active");
+                    status.classList.add("success");
+                    status.querySelector(".text").innerHTML = "Успешно отправлено!";
+                }else{
+                    status.classList.add("active");
+                    status.classList.add("error");
+                    status.querySelector(".text").innerHTML = "Произошла ошибка!";    
+                }            
             }else{
                 status.classList.add("active");
                 status.classList.add("error");
-                status.querySelector(".text").innerHTML = "Произошла ошибка!";    
-            }            
-        }else{
-            status.classList.add("active");
-            status.classList.add("error");
-            status.querySelector(".text").innerHTML = "Произошла ошибка!";
-        }
-
-    };
+                status.querySelector(".text").innerHTML = "Произошла ошибка!";
+            }
+    
+        };
+    },1000)
+    
 }
 
 /**
@@ -267,12 +275,11 @@ function closeMap()
  */
 function init() {
     new ymaps.SuggestView('address_suggest');
-    new ymaps.SuggestView('address_suggest_map');
 
     myMap = new ymaps.Map('map', {
         center: [55.76, 37.64],
         zoom: 10,
-        controls: []
+        
     });
 
     let exitButton = new ymaps.control.Button(
@@ -300,6 +307,9 @@ function init() {
             myPlacemark.events.add('dragend', function () {
                 getAddress(myPlacemark.geometry.getCoordinates());
             });
+            myPlacemark.events.add('click', function () {
+                getAddress(myPlacemark.geometry.getCoordinates(),true);
+            });
         }
         if(!chooseButton)
         {
@@ -312,7 +322,7 @@ function init() {
             );
 
             chooseButton.events.add('click',function(){
-                getAddress(coords);
+                getAddress(coords,true);
             })
         }        
         myMap.controls.add(chooseButton);
@@ -322,27 +332,30 @@ function init() {
 
     function createPlacemark(coords) {
         return new ymaps.Placemark(coords, {
-            iconCaption: 'поиск...'
+            iconCaption: 'г. Москва Шереметьевская ул 179'
         }, {
             preset: 'islands#violetDotIconWithCaption',
             draggable: true
         });
     }
 
-    function getAddress(coords) {
-        myPlacemark.properties.set('iconCaption', 'Выбранный адрес');
+    function getAddress(coords,withSelect) {
+        myPlacemark.properties.set('iconCaption', 'г. Москва Шереметьевская ул 179 ');
         
-        let input = document.querySelector("form").querySelector("#address_suggest_map");
-        input.value =  "Выбранный адрес";
-        closeMap();
+        if(withSelect)
+        {
+            let input = document.querySelector("form").querySelector("#address_suggest_map");
+            input.value =  "г. Москва Шереметьевская ул 179";
+            clearError(input);
+            closeMap();
+        }
+        
         /**
          * Ниже закомментирован код поиска адреса по координатам. 
          * Так как сайт разрабатывался на локальном сервере без доступного домена, работа данного блока невозможна без ключа API от yandex.
          * А ключ невозможно получить без домена.
          *                 
          */
-
-
 
         // ymaps.geocode(coords).then(function (res) {
         //     var firstGeoObject = res.geoObjects.get(0);

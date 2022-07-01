@@ -75,15 +75,25 @@
                 }
             }
         }
+        & .openmap{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            top:0;
+            left:0;
+        }
         & .smallbutton{
             position: absolute;
             font-size: 14px;
             color:green;
             border: 1px solid green;
             border-radius: 6px;
-            padding:5px 2px;
+            padding:5px 22px;
             right: 5px;
-            cursor: pointer;
+            pointer-events: none;
+            user-select: none;
+            background-color: white;
             top: calc(var(--input-margin-top) + var(--input-padding-vertical) - 5px);
         }
         & button{
@@ -124,9 +134,8 @@
     }
   }
 form{
-    
-    position: relative;
-    
+
+    position: relative;    
     &.loading{        
         pointer-events: none;
         position: relative;
@@ -186,6 +195,14 @@ form{
                 &:hover{
                     background-color: #000000;
                     color:white
+                }
+            }
+            & input{
+                &[data-map]
+                {
+                    user-select: none;
+                    pointer-events: none;
+                    background-color: hsl(0, 0%, 95%);
                 }
             }
         }

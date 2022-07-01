@@ -6,11 +6,11 @@ session_start();
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Тестовое задание</title>
   <link href="src/style.css" rel="stylesheet" />
   <script src="src/script.js"></script>
   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
   
 </head>
 <body>
@@ -69,11 +69,12 @@ session_start();
             </div>
             <div class="block">
                 <div class="input-wrapper">
-                    <input type="text" placeholder=' ' name='AddressMap' required id='address_suggest_map'>
+                    <input type="text" placeholder=' ' data-map name='AddressMap' required id='address_suggest_map' style='padding-right:50px;'>
                     <div class="placeholder">
                         Адрес 2
-                    </div>     
-                    <div class="smallbutton" onclick='openMap(this)'>Карта</div> 
+                    </div>
+                    <div class="openmap" onclick='openMap(this)'></div>     
+                    <div class="smallbutton">Карта</div> 
                     <div class="error"></div>  
                 </div>
             </div>
@@ -87,7 +88,7 @@ session_start();
     </div>
     <footer>
         <div class="info">
-            Разработанно в 2022г. Дробчак Алексеем
+            Разработанно в 2022г. Дробчак А.И.
         </div>
     </footer>
 </body>
