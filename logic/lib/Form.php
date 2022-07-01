@@ -39,6 +39,10 @@ class Form{
         $string = date("Y.m.d H:i:s")." - IP: $ip \nДанные формы\n";        
         foreach($data as $key=>$item)
         {
+            if(!$key && !$item)
+            {
+                continue;
+            }
             $string .=$key . " : ". $item."\n";
             
         }
